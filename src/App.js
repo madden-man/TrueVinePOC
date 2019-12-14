@@ -1,11 +1,15 @@
 import React from 'react';
-import AppRouter from './utils/AppRouter';
+import { Provider } from 'react-redux';
+import AppRouter from './config/AppRouter';
 
 import './App.css';
+import configureStore from './config/redux/store';
 
 function App() {
   return (
-    <AppRouter />
+    <Provider store={configureStore()}>
+      <AppRouter />
+    </Provider>
   );
 }
 

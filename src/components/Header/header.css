@@ -1,8 +1,13 @@
 .header {
   width: 100%;
   background-color: green;
-  height: 6.25rem;
+  height: 8rem;
   color: white;
   display: flex;
   align-items: center;
+}
+
+.header__big-link {
+  font-size: 3rem;
+  margin-left: 2.5rem;
 }

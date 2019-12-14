@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -29,8 +30,16 @@ const config = {
         use: ["style-loader", "css-loader"]
       }
 		]
-  },
-  plugins: [htmlPlugin],
+	},
+	resolve: {
+		alias: {
+			components: path.resolve(__dirname, 'src/components'),
+			config: path.resolve(__dirname, 'src/config'),
+			views: path.resolve(__dirname, 'src/views'),
+		},
+	},
+	plugins: [htmlPlugin],
+	devtool: 'source-maps'
 };
 
 module.exports = config;

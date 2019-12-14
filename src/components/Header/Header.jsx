@@ -5,7 +5,7 @@ import './header.css'
 
 export const Header = () =>
   <section className="header">
-    <Link to="/">
+    <Link to="/" className="header__big-link">
       TrueVine
     </Link>
   </section>;
