@@ -1,13 +1,11 @@
 import React from 'react';
 import Header from 'components/Header';
-import ChatList from 'components/ChatList';
+import Dashboard from '../chat/Dashboard';
 
 export const Home = () =>
   <>
     <Header />
-    <section className="dashboard">
-      <ChatList />
-    </section>
+    <Dashboard />
   </>;
 
 export default Home;

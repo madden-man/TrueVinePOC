@@ -5,9 +5,13 @@
   color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.header__inner {
+  width: 75rem;
 }
 
 .header__big-link {
   font-size: 3rem;
-  margin-left: 2.5rem;
 }

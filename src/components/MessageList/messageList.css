@@ -1,0 +1,42 @@
+.messagelist {
+  height: 100%;
+  margin: 0 2rem;
+  border-bottom: 2px solid green;
+  flex-grow: 1;
+}
+
+.messagelist__info {
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid green;
+  justify-content: center;
+}
+
+.messagelist__items {
+  padding: 1rem 0;
+}
+
+.messagelist__item {
+  padding: 1rem 0;
+}
+
+.messagelist__item--self {
+  text-align: right;
+  margin-left: 6rem;
+}
+
+.messagelist__item--unself {
+  text-align: left;
+  margin-right: 6rem;
+}
+
+.messagelist__text {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.messagelist__text:first-child {
+  margin-top: 0;
+}

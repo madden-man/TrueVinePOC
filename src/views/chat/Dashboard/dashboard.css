@@ -1,0 +1,6 @@
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  max-width: 75rem;
+  margin: auto;
+}

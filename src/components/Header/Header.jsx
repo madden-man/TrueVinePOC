@@ -5,9 +5,11 @@ import './header.css'
 
 export const Header = () =>
   <section className="header">
-    <Link to="/" className="header__big-link">
-      TrueVine
-    </Link>
+    <div className="header__inner">
+      <Link to="/" className="header__big-link">
+        TrueVine
+      </Link>
+    </div>
   </section>;
 
 export default Header;

@@ -1,5 +1,24 @@
 .chatlist {
   width: 25rem;
+  min-width: 25rem;
+  height: 100%;
+}
+
+.chatlist__btn {
+  padding: 1rem;
+  margin: 2rem 0;
+  display: inline-block;
+  border: none;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  background: green;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .chatlist__thread {
@@ -12,6 +31,11 @@
   flex-direction: column;
   cursor: pointer;
   user-select: none;
+}
+
+.chatlist__thread:first-child {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
 .chatlist__name {
