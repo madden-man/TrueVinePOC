@@ -12,6 +12,15 @@
   width: 75rem;
 }
 
+.header__inner-links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header__inner-links a {
+  margin: 0 1rem;
+}
+
 .header__big-link {
   font-size: 3rem;
 }

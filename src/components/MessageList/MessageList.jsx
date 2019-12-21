@@ -14,11 +14,12 @@ export const MessageList = ({ thread, messages }) =>
       <span>{messages[0].from === 'Self' ? messages[0].to : messages[0].from}</span>
     </div>
     <div className="messagelist__items">
-      {messages.map(({ from, text }) =>
+      {messages.map(({ id, from, text }) =>
         <div className={classnames('messagelist__item', { 
           'messagelist__item--self': from === 'Self',
           'messagelist__item--notself': from !== 'Self'
           })}
+          key={id}
         >
           {text.split(/\n/g).map(line =>
             <p className="messagelist__text" key={line}>
