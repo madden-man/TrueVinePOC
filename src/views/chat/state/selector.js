@@ -7,7 +7,9 @@ export const selectedThreadIdSelector = state => state[namespace]?.selectedThrea
 export const selectedThreadSelector = state => {
   const selectedThreadId = selectedThreadIdSelector(state);
 
-  const thread = chatSelector(state).threads.find(({ id }) => id === selectedThreadId);
+  const threads = chatSelector(state)?.threads;
+
+  const thread = threads && threads.find(({ id }) => id === selectedThreadId);
 
   return {
     thread,

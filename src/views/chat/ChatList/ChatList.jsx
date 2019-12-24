@@ -13,7 +13,7 @@ export const ChatList = ({ threads, threadSelected, messageModalOpened, threadsR
   useEffect(() => {
     const socket = socketIOClient('http://localhost:8080');
 
-    socket.on('initial_data', data => threadsReceived(data.threads));
+    socket.on('initial_data', data => threadsReceived(threads));
     socket.on('show_notification', data => {
       messageReceived(data.message);
       threadsReceived(data.threads);

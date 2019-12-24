@@ -11,6 +11,8 @@ import './messageList.css';
 export const MessageList = ({ thread, messages, messageSent }) => {
   const [reply, setReply] = useState('');
 
+  if (!thread) return null;
+  
   return (
     <section className="messagelist">
       <div className="messagelist__info">
