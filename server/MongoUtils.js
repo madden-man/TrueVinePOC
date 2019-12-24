@@ -6,12 +6,13 @@ module.exports = {
       MongoClient.connect('mongodb://localhost:27017/chatdb', function(err, client) {
         client.db('chatdb').collection('threads', function(err, collection) {
           collection.find().toArray(function(err, items) {
-            console.log(items);
             resolve(items);
           });
         });
       });
-    });
+    }).then(function(result) {
+      return result;
+    })
   },
   getMessagesByThreadId: function(threadId) {
     MongoClient.connect('mongodb://localhost:27017/chatdb', function(err, client) {

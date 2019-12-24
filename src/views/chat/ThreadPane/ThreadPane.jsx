@@ -7,30 +7,30 @@ import socketIOClient from 'socket.io-client';
 import { chatSelector } from 'views/chat/state/selector';
 import mapDispatchToProps from './mapDispatchToProps';
 
-import './chatList.css';
+import './threadPane.css';
 
-export const ChatList = ({ threads, threadSelected, messageModalOpened, threadsReceived, messageReceived }) => {
+export const ThreadPane = ({ threads, threadSelected, messageModalOpened, threadsReceived, messageReceived }) => {
   useEffect(() => {
     const socket = socketIOClient('http://localhost:8080');
 
-    socket.on('initial_data', data => threadsReceived(threads));
-    socket.on('show_notification', data => {
-      messageReceived(data.message);
-      threadsReceived(data.threads);
+    socket.on('initial_data', ({ threads }) => threadsReceived(threads));
+    socket.on('show_notification', ({ message, threads}) => {
+      messageReceived(message);
+      threadsReceived(threads);
     });
   }, []);
   
   return (
-    <section className="chatlist">
-      <button className="chatlist__btn" onClick={() => messageModalOpened()}>
+    <section className="threadpane">
+      <button className="threadpane__btn" onClick={() => messageModalOpened()}>
         New Message
       </button>
       {threads.map(({ id, name, mostRecentMessage: { from, to, text }}) =>
-        <div className="chatlist__thread" key={text} onClick={() => threadSelected(id)}>
-          <span className="chatlist__name">
+        <div className="threadpane__thread" key={text} onClick={() => threadSelected(id)}>
+          <span className="threadpane__name">
             {name} ({(from === 'Self' ? to : from)})
           </span>
-          <span className="chatlist__msg">
+          <span className="threadpane__msg">
             {text.trim().substring(0, 90)}{text.length > 90 && '...'}
           </span>
         </div>
@@ -39,7 +39,7 @@ export const ChatList = ({ threads, threadSelected, messageModalOpened, threadsR
   );
 };
 
-ChatList.propTypes = {
+ThreadPane.propTypes = {
   threads: array,
   threadSelected: func,
   messageModalOpened: func,
@@ -47,8 +47,8 @@ ChatList.propTypes = {
   messageReceived: func,
 };
 
-ChatList.defaultProps = {
+ThreadPane.defaultProps = {
   threads: [],
 };
 
-export default connect(chatSelector, mapDispatchToProps)(ChatList);
+export default connect(chatSelector, mapDispatchToProps)(ThreadPane);

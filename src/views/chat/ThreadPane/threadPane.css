@@ -1,10 +1,10 @@
-.chatlist {
+.threadpane {
   width: 25rem;
   min-width: 25rem;
   height: 100%;
 }
 
-.chatlist__btn {
+.threadpane__btn {
   padding: 1rem;
   margin: 2rem 0;
   display: inline-block;
@@ -21,7 +21,7 @@
   -moz-appearance: none;
 }
 
-.chatlist__thread {
+.threadpane__thread {
   max-width: 100%;
   height: 5rem;
   padding: 1rem 0.5rem 1rem 1.5rem;
@@ -33,17 +33,17 @@
   user-select: none;
 }
 
-.chatlist__thread:first-child {
+.threadpane__thread:first-child {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
 
-.chatlist__name {
+.threadpane__name {
   font-size: 20px;
   margin-bottom: 1rem;
 }
 
-.chatlist__msg {
+.threadpane__msg {
   font-size: 16px;
   line-height: 1.25;
 }

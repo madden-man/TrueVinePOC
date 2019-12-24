@@ -10,19 +10,24 @@ app.get('/', function(req, res) {
 io.on('connection', function (socket) {
   console.log('new user!');
 
-  const threads = mongoUtils.getThreads();
-  console.log(threads);
-  socket.emit('initial_data', threads);
+  mongoUtils.getThreads().then(function(result) {
+    console.log(result);
+
+    socket.emit('initial_data', {
+      threads: result,
+    });
+  });
 
   socket.on( 'new_notification', function( data ) {
     console.log(data);
 
    // mongoUtils.insertMessage(data);
 
-    const threads = mongoUtils.getThreads();
-    io.sockets.emit( 'show_notification', {
-      message: data,
-      threads,
+    mongoUtils.getThreads().then(function(threads) {
+      io.sockets.emit( 'show_notification', {
+        message: data,
+        threads,
+      });
     });
   });
 

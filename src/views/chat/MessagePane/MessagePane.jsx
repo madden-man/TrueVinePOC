@@ -6,34 +6,42 @@ import classnames from 'classnames';
 import { selectedThreadSelector, messagesSelector } from 'views/chat/state/selector';
 import mapDispatchToProps from './mapDispatchToProps';
 
-import './messageList.css';
+import './messagePane.css';
 
-export const MessageList = ({ thread, messages, messageSent }) => {
+export const MessagePane = ({ thread, messages, messageSent }) => {
   const [reply, setReply] = useState('');
 
   if (!thread) return null;
   
+  if (!messages) {
+    return (
+      <section className="messagepane">
+        <h1>Looks like you aren't in any threads yet!</h1>
+      </section>
+    )
+  }
+
   return (
-    <section className="messagelist">
-      <div className="messagelist__info">
+    <section className="messagepane">
+      <div className="messagepane__info">
         <h2>{thread.name}</h2>
         <span>{messages[0].from === 'Self' ? messages[0].to : messages[0].from}</span>
       </div>
-      <div className="messagelist__items">
+      <div className="messagepane__items">
         {messages.map(({ id, from, text }) =>
-          <div className={classnames('messagelist__item', {
-            'messagelist__item--self': from === 'Self',
-            'messagelist__item--notself': from !== 'Self'
+          <div className={classnames('messagepane__item', {
+            'messagepane__item--self': from === 'Self',
+            'messagepane__item--notself': from !== 'Self'
             })}
             key={id || text}
           >
             {text.split(/\n/g).map(line =>
-              <p className="messagelist__text" key={line}>
+              <p className="messagepane__text" key={line}>
                 {line}
               </p>)}
         </div>)}
       </div>
-      <div className="messagelist__input">
+      <div className="messagepane__input">
         <input value={reply} onChange={(e) => setReply(e.target.value)} />
         <button onClick={() => {
           messageSent(reply);
@@ -44,7 +52,7 @@ export const MessageList = ({ thread, messages, messageSent }) => {
   );
 };
 
-MessageList.propTypes = {
+MessagePane.propTypes = {
   messages: array,
 };
 
@@ -53,4 +61,4 @@ const selector = state => ({
   ...messagesSelector(state),
 });
 
-export default connect(selector, mapDispatchToProps)(MessageList);
+export default connect(selector, mapDispatchToProps)(MessagePane);
