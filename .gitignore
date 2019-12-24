@@ -6,6 +6,9 @@
 .pnp.js
 /dist
 
+# database
+/chatdb
+
 # testing
 /coverage
 

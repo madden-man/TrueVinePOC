@@ -6,15 +6,17 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 const config = {
-	entry: './src/index.js',
+	entry: ['@babel/polyfill', './src/index.js'],
 	output: {
 		path: __dirname + '/',
 		filename: 'dist/main.js',
+		publicPath: '/',
 	},
 	devServer: {
 		contentBase: './public',
 		port: 3000,
 		hot: true,
+		historyApiFallback: true,
 	},
 	module: {
 		rules: [

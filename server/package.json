@@ -1,0 +1,16 @@
+{
+  "name": "truevine-server",
+  "version": "0.0.1",
+  "description": "POC to see if it's practical to expect a homemade server to handle chats and calendars",
+  "dependencies": {
+    "concurrently": "^5.0.2",
+    "express": "^4.17.1",
+    "mongodb": "^3.4.1",
+    "socket.io": "^2.3.0"
+  },
+  "scripts": {
+    "start": "concurrently --names 'DATABASE, APP' --prefix-colors 'yellow,green' --kill-others npm:start-mongo npm:start-app",
+    "start-mongo": "mongod -dbpath /home/tommy/dev/truevine-poc/chatdb",
+    "start-app": "node App.js"
+  }
+}

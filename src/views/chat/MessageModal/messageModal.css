@@ -1,0 +1,31 @@
+.message-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(128, 128, 128, .65);
+}
+
+.message-modal {
+  position: relative;
+  width: 30rem;
+  height: 15rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 2px ridge green;
+  opacity: 100%;
+}
+
+.message-modal__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

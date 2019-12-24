@@ -1,6 +1,7 @@
 import React from 'react';
-import ChatList from 'components/ChatList';
-import MessageList from 'components/MessageList';
+import ChatList from '../ChatList';
+import MessageList from '../MessageList';
+import MessageModal from '../MessageModal';
 
 import './dashboard.css';
 
@@ -8,6 +9,7 @@ export const Dashboard = () =>
   <section className="dashboard">
     <ChatList />
     <MessageList />
+    <MessageModal />
   </section>;
 
 export default Dashboard;

@@ -2,10 +2,12 @@ import { namespace } from './constants';
 
 export const chatSelector = state => state[namespace];
 
-export const selectedThreadSelector = state => {
-  const threadId = chatSelector(state).selectedThreadId;
+export const selectedThreadIdSelector = state => state[namespace]?.selectedThreadId;
 
-  const thread = chatSelector(state).threads.find(({ id }) => id === threadId);
+export const selectedThreadSelector = state => {
+  const selectedThreadId = selectedThreadIdSelector(state);
+
+  const thread = chatSelector(state).threads.find(({ id }) => id === selectedThreadId);
 
   return {
     thread,
@@ -22,8 +24,17 @@ export const messagesSelector = state => {
   };
 };
 
+export const messageModalSelector = state => {
+  const isModalOpen = state[namespace]?.isModalOpen;
+
+  return {
+    isModalOpen,
+  };
+}
+
 export default {
   chatSelector,
   selectedThreadSelector,
   messagesSelector,
+  messageModalSelector,
 };
