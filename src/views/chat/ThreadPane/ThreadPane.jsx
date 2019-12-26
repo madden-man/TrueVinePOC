@@ -22,7 +22,7 @@ export const ThreadPane = ({ threads, threadSelected, messageModalOpened, thread
   
   return (
     <section className="threadpane">
-      <button className="threadpane__btn" onClick={() => messageModalOpened()}>
+      <button className="threadpane__btn" onClick={messageModalOpened}>
         New Message
       </button>
       {threads.map(({ id, name, mostRecentMessage: { from, to, text }}) =>

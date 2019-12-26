@@ -28,4 +28,9 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  background: lightgreen;
+  border: 1px solid green;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 0.25rem 0.5rem;
 }
