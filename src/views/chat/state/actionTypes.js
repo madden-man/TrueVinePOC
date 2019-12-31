@@ -7,4 +7,5 @@ export default {
   MESSAGE_SENT: `${namespace}/MESSAGE_SENT`,
   MESSAGE_RECEIVED: `${namespace}/MESSAGE_RECEIVED`,
   THREADS_RECEIVED: `${namespace}/THREADS_RECEIVED`,
+  MESSAGES_RECEIVED: `${namespace}/MESSAGES_RECEIVED`,
 };

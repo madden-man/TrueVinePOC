@@ -1,33 +1,48 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
 var mongoUtils = require('./MongoUtils');
 
 app.get('/', function(req, res) {
-   res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function (socket) {
   console.log('new user!');
 
-  mongoUtils.getThreads().then(function(result) {
-    console.log(result);
+  mongoUtils.getThreads().then(function(threadResult) {
+    console.log(threadResult);
 
-    socket.emit('initial_data', {
-      threads: result,
-    });
+    if (threadResult[0]) {
+      mongoUtils.getMessagesByThreadId(threadResult[0].id).then(function(messageResult) {
+        console.log(messageResult);
+
+        socket.emit('initial_data', {
+          threads: threadResult,
+          messages: messageResult,
+        });
+      });
+    }
   });
 
   socket.on( 'new_notification', function( data ) {
     console.log(data);
 
-   // mongoUtils.insertMessage(data);
+    mongoUtils.insertMessage(data);
 
     mongoUtils.getThreads().then(function(threads) {
-      io.sockets.emit( 'show_notification', {
+      io.sockets.emit('show_notification', {
         message: data,
         threads,
       });
+    });
+  });
+
+  socket.on('thread_selected', function( data, callback ) {
+    console.log(data + '\n\n');
+    mongoUtils.getMessagesByThreadId(data).then(function(messages) {
+      callback(messages);
     });
   });
 
@@ -37,5 +52,5 @@ io.on('connection', function (socket) {
 });
 
 http.listen(8080, function() {
-   console.log('listening on localhost:8080');
+  console.log('listening on localhost:8080');
 });

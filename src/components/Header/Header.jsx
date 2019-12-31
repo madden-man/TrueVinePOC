@@ -10,6 +10,9 @@ export const Header = () =>
         TrueVine
       </Link>
       <div className="header__inner-links">
+      <Link to="/dship">
+          Discipleship
+        </Link>
         <Link to="/calendar">
           Calendar
         </Link>

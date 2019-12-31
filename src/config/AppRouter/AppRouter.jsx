@@ -7,6 +7,7 @@ import {
 
 import BasicLayout from 'components/layouts/BasicLayout';
 import Dashboard from 'views/chat/Dashboard';
+import LoginPage from 'views/auth/LoginPage';
 import AboutUs from 'views/misc/AboutUs';
 import Donate from 'views/misc/Donate';
 
@@ -16,6 +17,14 @@ export const AppRouter = () =>
         <Route exact path="/">
           <BasicLayout>
             <Dashboard />
+          </BasicLayout>
+        </Route>
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+        <Route exact path="/dship">
+          <BasicLayout>
+
           </BasicLayout>
         </Route>
         <Route exact path="/calendar">

@@ -9,11 +9,22 @@ import mapDispatchToProps from './mapDispatchToProps';
 
 import './threadPane.css';
 
-export const ThreadPane = ({ threads, threadSelected, messageModalOpened, threadsReceived, messageReceived }) => {
+export const ThreadPane = ({
+  threads,
+  threadSelected,
+  messageModalOpened,
+  threadsReceived,
+  messageReceived,
+  messagesReceived,
+}) => {
   useEffect(() => {
     const socket = socketIOClient('http://localhost:8080');
 
-    socket.on('initial_data', ({ threads }) => threadsReceived(threads));
+    socket.on('initial_data', ({ threads, messages }) => {
+      threadsReceived(threads);
+      messagesReceived(threads[0].id, messages);
+    });
+
     socket.on('show_notification', ({ message, threads}) => {
       messageReceived(message);
       threadsReceived(threads);

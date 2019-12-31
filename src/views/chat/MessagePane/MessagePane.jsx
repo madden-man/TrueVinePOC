@@ -13,7 +13,7 @@ export const MessagePane = ({ thread, messages, messageSent }) => {
 
   if (!thread) return null;
   
-  if (!messages) {
+  if (!messages || messages.length === 0) {
     return (
       <section className="messagepane">
         <h1>Looks like you aren't in any threads yet!</h1>
@@ -35,7 +35,7 @@ export const MessagePane = ({ thread, messages, messageSent }) => {
             })}
             key={id || text}
           >
-            {text.split(/\n/g).map(line =>
+            {text && text.split(/\n/g).map(line =>
               <p className="messagepane__text" key={line}>
                 {line}
               </p>)}

@@ -2,3 +2,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+#root {
+  min-width: 100vw;
+  min-height: 100vh;
+}

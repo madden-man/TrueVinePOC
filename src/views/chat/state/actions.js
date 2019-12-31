@@ -36,6 +36,14 @@ export const threadsReceived = (threads) => ({
   },
 });
 
+export const messagesReceived = (threadId, messages) => ({
+  type: actionTypes.MESSAGES_RECEIVED,
+  payload: {
+    threadId,
+    messages,
+  },
+});
+
 export default {
   threadSelected,
   messageModalOpened,
@@ -43,4 +51,5 @@ export default {
   messageSent,
   messageReceived,
   threadsReceived,
+  messagesReceived,
 };

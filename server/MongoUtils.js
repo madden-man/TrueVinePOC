@@ -15,17 +15,22 @@ module.exports = {
     })
   },
   getMessagesByThreadId: function(threadId) {
-    MongoClient.connect('mongodb://localhost:27017/chatdb', function(err, client) {
-      client.db('chatdb').collection('messages', function(err, collection) {
-        collection.find({ threadId }).toArray(function(err, items) {
-          return items;
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect('mongodb://localhost:27017/chatdb', function(err, client) {
+        client.db('chatdb').collection('messages', function(err, collection) {
+          collection.find({ threadId }).toArray(function(err, items) {
+            resolve(items);
+          })
         })
-      })
-    });
+      });
+    }).then(function(result) {
+      return result;
+    })
   },
   insertMessage: function(message) {
     MongoClient.connect('mongodb://localhost:27017/chatdb', function(err, client) {
       client.db('chatdb').collection('messages', function(err, collection) {
+        console.log(message);
         collection.insert(message);
       });
     });
