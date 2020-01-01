@@ -17,8 +17,8 @@ io.on('connection', function (socket) {
   console.log('new user!');
   let sessionId = Math.floor(Math.random() * 10000);
   users.push({
-    userId: '',
     sessionId,
+    userInfo: {},
   });
 
   chatUtils.getThreads().then(function(threadResult) {
@@ -64,15 +64,17 @@ io.on('connection', function (socket) {
       if (userInfo && userInfo.username) {
         bcrypt.compare(data.password, userInfo.password, function(err, res) {
           if(res) {
-           // Passwords match
-           delete userInfo.password;
+            // Passwords match
+            delete userInfo.password;
 
-           callback({
-             ...userInfo,
-             sessionId,
-           });
+            users.find((user) => user.sessionId === sessionId).userInfo = userInfo;
+
+            callback({
+              ...userInfo,
+              sessionId,
+            });
           } else {
-           // Passwords don't match
+            // Passwords don't match
           } 
         });
       }
