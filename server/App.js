@@ -1,23 +1,29 @@
+const bcrypt = require('bcrypt');
+
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-var mongoUtils = require('./MongoUtils');
+const accountUtils = require('./utils/Account');
+const chatUtils = require('./utils/Chat');
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+let users = [];
+
 io.on('connection', function (socket) {
   console.log('new user!');
+  let sessionId = Math.floor(Math.random() * 10000);
+  users.push({
+    userId: '',
+    sessionId,
+  });
 
-  mongoUtils.getThreads().then(function(threadResult) {
-    console.log(threadResult);
-
+  chatUtils.getThreads().then(function(threadResult) {
     if (threadResult[0]) {
-      mongoUtils.getMessagesByThreadId(threadResult[0].id).then(function(messageResult) {
-        console.log(messageResult);
-
+      chatUtils.getMessagesByThreadId(threadResult[0].id).then(function(messageResult) {
         socket.emit('initial_data', {
           threads: threadResult,
           messages: messageResult,
@@ -27,11 +33,9 @@ io.on('connection', function (socket) {
   });
 
   socket.on( 'new_notification', function( data ) {
-    console.log(data);
+    chatUtils.insertMessage(data);
 
-    mongoUtils.insertMessage(data);
-
-    mongoUtils.getThreads().then(function(threads) {
+    chatUtils.getThreads().then(function(threads) {
       io.sockets.emit('show_notification', {
         message: data,
         threads,
@@ -40,9 +44,38 @@ io.on('connection', function (socket) {
   });
 
   socket.on('thread_selected', function( data, callback ) {
-    console.log(data + '\n\n');
-    mongoUtils.getMessagesByThreadId(data).then(function(messages) {
+    chatUtils.getMessagesByThreadId(data).then(function(messages) {
       callback(messages);
+    });
+  });
+
+  socket.on('account_created', function( data ) {
+    bcrypt.hash(data.password, 10, function(err, hash) {
+      accountUtils.insertAccount({
+        ...data,
+        password: hash,
+      });
+    });
+  });
+
+  socket.on('attempted_login', function( data, callback ) {
+    accountUtils.getAccount(data.username).then(function(userInfo) {
+      console.log(userInfo);
+      if (userInfo && userInfo.username) {
+        bcrypt.compare(data.password, userInfo.password, function(err, res) {
+          if(res) {
+           // Passwords match
+           delete userInfo.password;
+
+           callback({
+             ...userInfo,
+             sessionId,
+           });
+          } else {
+           // Passwords don't match
+          } 
+        });
+      }
     });
   });
 

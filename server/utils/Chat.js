@@ -30,7 +30,6 @@ module.exports = {
   insertMessage: function(message) {
     MongoClient.connect('mongodb://localhost:27017/chatdb', function(err, client) {
       client.db('chatdb').collection('messages', function(err, collection) {
-        console.log(message);
         collection.insert(message);
       });
     });

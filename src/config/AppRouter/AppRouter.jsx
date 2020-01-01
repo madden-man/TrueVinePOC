@@ -7,7 +7,8 @@ import {
 
 import BasicLayout from 'components/layouts/BasicLayout';
 import Dashboard from 'views/chat/Dashboard';
-import LoginPage from 'views/auth/LoginPage';
+import LoginForm from 'views/auth/LoginForm';
+import RegisterForm from 'views/auth/RegisterForm';
 import AboutUs from 'views/misc/AboutUs';
 import Donate from 'views/misc/Donate';
 
@@ -20,7 +21,10 @@ export const AppRouter = () =>
           </BasicLayout>
         </Route>
         <Route exact path="/login">
-          <LoginPage />
+          <LoginForm />
+        </Route>
+        <Route exact path="/register">
+          <RegisterForm />
         </Route>
         <Route exact path="/dship">
           <BasicLayout>

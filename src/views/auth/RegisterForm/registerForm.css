@@ -1,0 +1,17 @@
+.register-container {
+  height: 100%;
+  max-width: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: auto;
+  flex-direction: column;
+}
+
+.register-container h3 {
+  margin: 0.5rem 0;
+}
+
+.register-container input {
+  margin-bottom: 0.5rem;
+}
