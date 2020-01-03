@@ -11,7 +11,12 @@ export const userInfoReceived = (userInfo) => ({
   },
 });
 
+export const userLoggedOut = () => ({
+  type: actionTypes.USER_LOGGED_OUT,
+});
+
 export default {
   toggleRegistrationForm,
   userInfoReceived,
+  userLoggedOut,
 };

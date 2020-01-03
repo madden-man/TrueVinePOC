@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LogoutLink from 'views/auth/LogoutLink';
 
 import './header.css'
 
@@ -22,6 +23,7 @@ export const Header = () =>
         <Link to="/donate">
           Donate
         </Link>
+        <LogoutLink />
       </div>
     </div>
   </section>;

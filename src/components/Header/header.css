@@ -6,9 +6,9 @@
 }
 
 .header__inner {
-  min-width: 75rem;
+  max-width: 75rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
   margin: auto;

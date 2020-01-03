@@ -12,7 +12,7 @@ import RegisterForm from 'views/auth/RegisterForm';
 import AboutUs from 'views/misc/AboutUs';
 import Donate from 'views/misc/Donate';
 
-export const AppRouter = () =>
+export const AppRouter = ({ userLoggedOut }) =>
   <Router>
     <Switch>
         <Route exact path="/">

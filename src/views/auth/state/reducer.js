@@ -19,6 +19,8 @@ export default (state = initialState, action) => {
         ...state,
         userInfo: action.payload.userInfo,
       };
+    case actionTypes.USER_LOGGED_OUT:
+      return initialState;
     default:
       return state;
   }

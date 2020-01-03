@@ -32,7 +32,11 @@ io.on('connection', function (socket) {
     }
   });
 
-  socket.on( 'new_notification', function( data ) {
+  socket.on('new_thread', function( data ) {
+    chatUtils.insertThread(data);
+  });
+
+  socket.on('new_notification', function( data ) {
     chatUtils.insertMessage(data);
 
     chatUtils.getThreads().then(function(threads) {

@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bool, func } from 'prop-types';
+import socketIOClient from 'socket.io-client';
 
+import { userInfoSelector } from 'views/auth/state/selector';
 import { messageModalSelector } from '../state/selector';
 import mapDispatchToProps from './mapDispatchToProps';
 
 import './messageModal.css';
 
-export const MessageModal = ({ isModalOpen, messageModalClosed, messageSent }) => {
-  const [message, setMessage] = useState('This is my example message! Hi!');
+export const MessageModal = ({ username, isModalOpen, messageModalClosed }) => {
+  const [fields, setFields] = useState({
+    name: '',
+    recipient: '',
+    message: '',
+  });
 
   if (!isModalOpen) return null;
 
@@ -20,14 +26,36 @@ export const MessageModal = ({ isModalOpen, messageModalClosed, messageSent }) =
         </button>
         <h1>New Message</h1>
 
+        <h3>Thread Name</h3>
+        <input value={fields.name} onChange={(e) => setFields({ ...fields, name: e.target.value })} />
+        <h3>Recipient</h3>
+        <input value={fields.recipient} onChange={(e) => setFields({ ...fields, recipient: e.target.value })} />
+
+        <h3>Message</h3>
         <textarea
           style={{ width: '100%', height: '4rem' }}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Hey everybody!"
+          value={fields.message}
+          onChange={(e) => setFields({ ...fields, message: e.target.value })}
         />
         <br />
         <br />
-        <button onClick={() => messageSent(message)}>
+        <button onClick={() => {
+          const socket = socketIOClient('http://localhost:8080');
+        
+          const messageInfo = {
+            text: fields.message,
+            from: username,
+            to: fields.recipient,
+          };
+
+          const threadInfo = {
+            name: fields.name,
+            mostRecentMessage: messageInfo,
+          };
+        
+          socket.emit('new_thread', threadInfo);
+        }}>
           Send Message
         </button>
       </section>
@@ -41,4 +69,9 @@ MessageModal.propTypes = {
   messageSent: func,
 };
 
-export default connect(messageModalSelector, mapDispatchToProps)(MessageModal);
+const combinedSelector = state => ({
+  ...messageModalSelector(state),
+  ...userInfoSelector(state),
+});
+
+export default connect(combinedSelector, mapDispatchToProps)(MessageModal);

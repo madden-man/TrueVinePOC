@@ -10,12 +10,23 @@ export function* sessionStoreUserInfo(userInfo) {
   }
 };
 
+export function* removeSessionInfo() {
+  if (window.sessionStorage.getItem('userinfo')) {
+    window.sessionStorage.removeItem('userinfo');
+  }
+}
+
 export function* watchUserInfoReceived() {
   yield takeEvery(actionTypes.USER_INFO_RECEIVED, (action) => sessionStoreUserInfo(action.payload.userInfo));
 };
 
+export function* watchUserLoggedOut() {
+  yield takeEvery(actionTypes.USER_LOGGED_OUT, () => removeSessionInfo());
+}
+
 const sumSaga = [
   watchUserInfoReceived,
+  watchUserLoggedOut,
 ];
 
 export default sumSaga;

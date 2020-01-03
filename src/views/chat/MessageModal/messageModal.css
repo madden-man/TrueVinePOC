@@ -13,18 +13,27 @@
 .message-modal {
   position: relative;
   width: 30rem;
-  height: 15rem;
+  height: auto;
   background: white;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 1rem;
   border: 2px ridge green;
   opacity: 100%;
 }
 
+.message-modal h1 {
+  font-size: 24px;
+  margin-top: 0px;
+}
+
+.message-modal h3 {
+  margin: 1rem 0 0.5rem 0;
+}
+
 .message-modal__close {
   position: absolute;
-  right: 1rem;
-  top: 1rem;
+  right: 1.5rem;
+  top: 1.5rem;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { array } from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import socketIOClient from 'socket.io-client';
 
+import { userInfoSelector } from 'views/auth/state/selector';
 import { selectedThreadSelector, messagesSelector } from 'views/chat/state/selector';
-import mapDispatchToProps from './mapDispatchToProps';
 
 import './messagePane.css';
 
-export const MessagePane = ({ thread, messages, messageSent }) => {
+export const MessagePane = ({ thread, messages, username }) => {
   const [reply, setReply] = useState('');
 
   if (!thread) return null;
@@ -25,13 +26,13 @@ export const MessagePane = ({ thread, messages, messageSent }) => {
     <section className="messagepane">
       <div className="messagepane__info">
         <h2>{thread.name}</h2>
-        <span>{messages[0].from === 'Self' ? messages[0].to : messages[0].from}</span>
+        <span>{messages[0].from === username ? messages[0].to : messages[0].from}</span>
       </div>
       <div className="messagepane__items">
         {messages.map(({ id, from, text }) =>
           <div className={classnames('messagepane__item', {
-            'messagepane__item--self': from === 'Self',
-            'messagepane__item--notself': from !== 'Self'
+            'messagepane__item--self': from === username,
+            'messagepane__item--notself': from !== username,
             })}
             key={id || text}
           >
@@ -44,7 +45,17 @@ export const MessagePane = ({ thread, messages, messageSent }) => {
       <div className="messagepane__input">
         <input value={reply} onChange={(e) => setReply(e.target.value)} />
         <button onClick={() => {
-          messageSent(reply);
+          const socket = socketIOClient('http://localhost:8080');
+
+          const messageInfo = {
+            text: reply,
+            threadId: thread.id,
+            from: username,
+            to: thread.name,
+          };
+
+          socket.emit('new_notification', messageInfo);
+
           setReply('');
         }}>Send Message</button>
       </div>
@@ -59,6 +70,7 @@ MessagePane.propTypes = {
 const selector = state => ({
   ...selectedThreadSelector(state),
   ...messagesSelector(state),
+  ...userInfoSelector(state),
 });
 
-export default connect(selector, mapDispatchToProps)(MessagePane);
+export default connect(selector)(MessagePane);
