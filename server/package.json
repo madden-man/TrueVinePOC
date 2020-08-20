@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "POC to see if it's practical to expect a homemade server to handle chats and calendars",
   "dependencies": {
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "concurrently": "^5.0.2",
     "express": "^4.17.1",
     "mongodb": "^3.4.1",
