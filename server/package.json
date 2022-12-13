@@ -5,7 +5,7 @@
   "dependencies": {
     "bcrypt": "^3.0.7",
     "concurrently": "^5.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongodb": "^3.4.1",
     "socket.io": "^2.3.0"
   },
